@@ -30,7 +30,7 @@ async function bootstrap() {
             throw new common_1.BadRequestException(formattedErrors);
         }
     }));
-    await app.listen(4000);
+    await app.listen(process.env.PORT, '0.0.0.0');
 }
 bootstrap();
 //# sourceMappingURL=main.js.map
