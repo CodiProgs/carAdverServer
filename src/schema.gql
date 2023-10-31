@@ -1,0 +1,176 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Car {
+  bodyType: String!
+  brand: Make
+  fuelType: String!
+  id: Float!
+  images: String!
+  mileage: String!
+  model: Model
+  name: String!
+  price: String!
+  registration: Float!
+  transmission: String!
+  user: User
+}
+
+type CreateCarResponse {
+  car: Car
+  error: ErrorType
+}
+
+type CreateMakeResponse {
+  error: ErrorType
+  make: Make
+}
+
+type CreateModelResponse {
+  error: ErrorType
+  model: Model
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type ErrorType {
+  code: String
+  message: String!
+}
+
+input LoginDto {
+  email: String!
+  password: String!
+}
+
+type LoginResponse {
+  error: ErrorType
+  user: User!
+}
+
+type Make {
+  id: Float!
+  image: String!
+  name: String!
+}
+
+type Model {
+  brand: Make
+  id: Float!
+  name: String!
+}
+
+type Mutation {
+  createCar(createCarInput: createCarDto!): CreateCarResponse!
+  createMake(createMakeInput: createMakeDto!): CreateMakeResponse!
+  createModel(createModelInput: createModelDto!): CreateModelResponse!
+  login(loginInput: LoginDto!): LoginResponse!
+  logout: String!
+  refreshToken: String!
+  register(registerInput: RegisterDto!): RegisterResponse!
+  updateEmail(updateEmailInput: updateEmailDto!): UpdateResponse!
+  updatePassword(updatePasswordInput: updatePasswordDto!): UpdateResponse!
+  updateType(updateTypeInput: updateTypeDto!): UpdateResponse!
+  updateUser(updateInput: UpdateDto!): UpdateResponse!
+}
+
+type Query {
+  getAllCarByMake(makeId: Float!): [Car!]!
+  getAllCars: [Car!]!
+  getAllMakes: [Make!]!
+  getCarById(id: Float!): Car!
+  getModelsAll: [Model!]!
+  getUserById(id: Float!): getUserByIdResponse!
+  getUsersByType(type: String!): [User!]!
+  hello: String!
+}
+
+input RegisterDto {
+  email: String!
+  image: String!
+  name: String!
+  password: String!
+  surname: String!
+  type: String!
+}
+
+type RegisterResponse {
+  error: ErrorType
+  user: User
+}
+
+input UpdateDto {
+  email: String!
+  image: String!
+  location: String
+  name: String!
+  phone: String
+  surname: String!
+}
+
+type UpdateResponse {
+  error: ErrorType
+  user: User
+}
+
+type User {
+  cars: [Car!]
+  createdAt: DateTime!
+  email: String!
+  id: Float!
+  image: String!
+  location: String
+  name: String!
+  password: String!
+  phone: String
+  surname: String!
+  type: String!
+  updatedAt: DateTime!
+}
+
+input createCarDto {
+  bodyType: String!
+  brandId: Int!
+  fuelType: String!
+  images: String!
+  mileage: Int!
+  modelId: Int!
+  name: String!
+  price: Int!
+  registration: String!
+  transmission: String!
+  userId: Int!
+}
+
+input createMakeDto {
+  image: String!
+  name: String!
+}
+
+input createModelDto {
+  makeId: Int!
+  name: String!
+}
+
+type getUserByIdResponse {
+  user: User
+}
+
+input updateEmailDto {
+  email: String!
+  id: Int!
+}
+
+input updatePasswordDto {
+  email: String!
+  password: String!
+}
+
+input updateTypeDto {
+  email: String!
+  type: String!
+}

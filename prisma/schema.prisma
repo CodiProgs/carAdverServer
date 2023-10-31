@@ -1,0 +1,66 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement()) @unique
+  name      String
+  surname   String
+  location  String?
+  image     String?
+  email     String   @unique
+  phone     String?   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  type      String
+  cars      Car[]
+}
+
+model Car {
+  id           Int      @id @default(autoincrement())
+  name         String
+  price        Int
+  bodyType     String
+  fuelType     String
+  mileage      Int
+  transmission String
+  registration String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  brandId      Int      
+  brand        Brand    @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  images       String
+  modelId      Int      
+  model        Model    @relation(fields: [modelId], references: [id], onDelete: Cascade)
+}
+
+model Brand {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  image        String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  models       Model[]
+  cars         Car[]
+}
+
+model Model {
+  id           Int      @id @default(autoincrement())
+  name         String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  brandsId     Int
+  brand        Brand    @relation(fields: [brandsId], references: [id], onDelete: Cascade)
+  car          Car []
+}
